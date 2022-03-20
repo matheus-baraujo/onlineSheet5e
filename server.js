@@ -1,8 +1,18 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
-app.get("/", function name(req, res) {
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.get("/", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
+});
+
+app.post("/", function (req,res) {
+    var var1 = req.body.var;
+    var var2 = req.body.var2;
+
+    res.send("Pegando duas variaveis post");
 });
 
 app.listen(3000, function () {
