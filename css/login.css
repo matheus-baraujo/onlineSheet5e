@@ -1,0 +1,38 @@
+body{
+    background-color: #090809 !important;
+    padding: 20% 15%;
+}
+
+h1{
+    color: white;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+form{
+    display: block;
+}
+
+input[type="text" i], input[type="password" i]{
+    width: 80%;
+    margin-left: 10%;
+}
+
+input[type="submit" i]{
+    display: block;
+    margin: auto;
+}
+
+.btn{
+    background-color: #C80711 !important;
+    color: white !important;
+    transition: ease-in-out 0.5s !important;
+    opacity: 1;
+}
+
+.btn:hover{
+    opacity: 0.6;
+}
