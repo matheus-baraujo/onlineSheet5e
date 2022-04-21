@@ -1,26 +1,48 @@
 const express = require("express");
 
-const app = express();
-const bodyParser = require("body-parser");
-const https = require("https");
 
+//App functions
+const app = express();
+
+const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.use('/css', express.static('css'));
+const https = require("https");
+
+//Database implementation
+var mysql = require('mysql');
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Vcom1998g",
+    database: "5esheets"
+});
+
+//Adding MD5 hash encoder and decoder
+const crypto = require('crypto');
+
+//adding the css files
+app.use(express.static('public'));
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/teste", function (req, res) {
-    res.sendFile(__dirname + "/views/teste.html");
-});
+app.post("/login", function (req,res) {
+    var username = req.body.username;
+    var password = crypto.createHash('md5').update(req.body.password).digest("hex");
 
-app.post("/", function (req,res) {
-    var var1 = req.body.var;
-    var var2 = req.body.var2;
+    con.connect(function(err) {
+        if (err) throw err;
+        var query = "SELECT * FROM usuarios WHERE login = '"+username+"'"+" AND password = '"+password+"'";
+        con.query(query, function (err, result, fields) {
+          if (err) throw err;
+          
+          console.log(result);
+        });
+    });
 
-    res.send("Pegando duas variaveis post");
+    res.send(texto);
 });
 
 //url = "";
