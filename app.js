@@ -4,6 +4,23 @@ const app = express();
 const bodyParser = require("body-parser");
 const https = require("https");
 
+
+const mysql = require('mysql');
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Vcom1998g",
+    database: "5esheets"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/css', express.static('css'));
 
