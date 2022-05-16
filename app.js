@@ -1,17 +1,22 @@
-const express = require("express");
+require('dotenv').config();
 
-const app = express();
+const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
-
-
+const _ = require('lodash');
 const mysql = require('mysql');
 
+const app = express();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use('/public', express.static('public'));
+app.set("view engine", "ejs");
+
+
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Vcom1998g",
-    database: "5esheets"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_BASE
 });
 
 con.connect(function(err) {
@@ -21,22 +26,22 @@ con.connect(function(err) {
 
 
 
-app.use(bodyParser.urlencoded({extended:true}));
-app.use('/css', express.static('css'));
+app.route('/')
+    .get(function (req, res){
+        res.render("index", {route: "index"});
+    })
 
-app.set("view engine", "ejs");
+    .post(function(req, res){
+        res.redirect("/");
+    });
 
-app.get("/", function (req, res) {
-    //res.sendFile(__dirname + "/views/index.html");
-    res.render("index", {route: "index"});
-});
+app.get("/lobby/:user", function(req, res){
+    const UID = _.lowerCase(req.params.user);
 
-app.post("/", function(req, res){
-    res.redirect("/");
-});
-
-app.get("/user", function(req, res){
-    res.render("user", {route: "user"});
+    res.render("user", {
+        route: "user",
+        UID: UID    
+    });
 });
 
 app.listen(3000, function () {
