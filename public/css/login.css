@@ -1,6 +1,6 @@
 body{
     background-color: #090809 !important;
-    padding: 15% 30%;
+    padding: 15% 35%;
 }
 
 h1{
@@ -35,4 +35,11 @@ input[type="submit" i]{
 
 .btn:hover{
     opacity: 0.6;
+}
+
+
+@media screen and (max-width:600px) {
+    body{
+        padding: 15%;
+    }
 }
