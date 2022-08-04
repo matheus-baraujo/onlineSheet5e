@@ -20,6 +20,7 @@ var con = mysql.createConnection({
     database: process.env.DB_BASE
 });
 
+
 app.route('/')
     .get(function (req, res){
         res.render("index", {route: "index"});
@@ -29,6 +30,7 @@ app.route('/')
         res.redirect("/");
     });
 
+    
 app.route('/login')
     .post(function (req, res){
         let username = req.body.username;
